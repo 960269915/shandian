@@ -1,0 +1,57 @@
+<van-tabs sticky animated active="{{ active }}" bind:change="onChange" title-active-color="">
+  <van-tab title="闲置">
+    <block wx:for="{{publishList}}" wx:key="index" data-row="{{item}}">
+      <!-- 闲置 -->
+        <van-card price="{{item.price}}"  tag="{{'浏览量'+item.activeNum}}" 
+        title="{{item.goodstype}}" thumb="{{ item.file.fileid }}" thumb-link="/pages/publish/unuseGoods/unuserGoods?type=info&id={{item._id}}">
+        <view slot="footer">
+          <van-button size="mini" bindtap="updateDate" data-index="0" data-row="{{item}}">擦亮</van-button>
+          <van-button size="mini" bindtap="remove" data-index="0" data-row="{{item}}">删除</van-button>
+          <van-button size="mini" bindtap="edit" data-index="0" data-row="{{item}}">编辑</van-button>
+        </view>
+      </van-card>
+    </block>
+
+
+  </van-tab>
+  <van-tab title="招领">
+    <block wx:for="{{publishList}}" wx:key="index" data-row="{{item}}">
+      <!-- 招领 -->
+        <van-card price="{{item.price}}"  tag="{{'浏览量'+item.activeNum}}" 
+        title="{{item.goodstype+',捡到地点:'+item.position}}" thumb="{{ item.file.fileid }}" thumb-link="/pages/publish/lostAndFind/lostAndFind?type=info&id={{item._id}}">
+        <view slot="footer">
+          <van-button size="mini" bindtap="updateDate" data-index="1" data-row="{{item}}">擦亮</van-button>
+          <van-button size="mini" bindtap="remove" data-index="1" data-row="{{item}}">删除</van-button>
+          <van-button size="mini" bindtap="edit" data-index="1" data-row="{{item}}">编辑</van-button>
+        </view>
+      </van-card>
+    </block>
+  </van-tab>
+  <van-tab title="丢失">
+    <block wx:for="{{publishList}}" wx:key="index" data-row="{{item}}">
+      <!-- 丢失 -->
+        <van-card price="{{item.price}}"  tag="{{'浏览量'+item.activeNum}}" 
+        title="{{item.goodstype+',丢失地点:'+item.position}}" thumb="{{ item.file.fileid }}" thumb-link="/pages/publish/findPet/findPet?type=info&id={{item._id}}">
+        <view slot="footer">
+          <van-button size="mini" bindtap="updateDate" data-index="2" data-row="{{item}}">擦亮</van-button>
+          <van-button size="mini" bindtap="remove" data-index="2" data-row="{{item}}">删除</van-button>
+          <van-button size="mini" bindtap="edit" data-index="2" data-row="{{item}}">编辑</van-button>
+        </view>
+      </van-card>
+    </block>
+    </van-tab>
+
+    <van-tab title="送养">
+    <block wx:for="{{publishList}}" wx:key="index" data-row="{{item}}">
+      <!-- 送养 -->
+        <van-card price="{{item.price}}"  tag="{{'浏览量'+item.activeNum}}" 
+        title="{{item.goodstype}}" thumb="{{ item.file.fileid }}" thumb-link="/pages/publish/sendPet/sendPet?type=info&id={{item._id}}">
+        <view slot="footer">
+          <van-button size="mini" bindtap="updateDate" data-index="3" data-row="{{item}}">擦亮</van-button>
+          <van-button size="mini" bindtap="remove" data-index="3" data-row="{{item}}">删除</van-button>
+          <van-button size="mini" bindtap="edit" data-index="3" data-row="{{item}}">编辑</van-button>
+        </view>
+      </van-card>
+    </block>
+    </van-tab>
+</van-tabs>

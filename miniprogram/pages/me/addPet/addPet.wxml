@@ -1,0 +1,39 @@
+<view class="page">
+  <view class="tip">所有数据都必须录入</view>
+  <van-cell-group>
+    <van-field label="宠物名称" model:value="{{ name }}" placeholder="请输入宠物名称" />
+    <view class="form-item flex">
+      <text class="form-label">宠物性别</text>
+      <van-radio-group model:value="{{ sex }}">
+        <view class="flex">
+          <van-radio name="1">雄性</van-radio>
+          <van-radio class="ml-10" name="0">雌性</van-radio>
+        </view>
+      </van-radio-group>
+    </view>
+
+    <view class="form-item flex">
+      <text class="form-label">开启相亲</text>
+      <van-radio-group model:value="{{ openLove }}">
+        <view class="flex">
+          <van-radio name="1">是</van-radio>
+          <van-radio class="ml-10" name="0">否</van-radio>
+        </view>
+      </van-radio-group>
+    </view>
+
+    <van-field label="宠物年龄" model:value="{{ age }}" type="number" placeholder="请输入宠物年龄" />
+
+    <van-field label="宠物物语" model:value="{{ describe }}" type="textarea" autosize placeholder="请输入宠物物语" />
+
+    <view class="form-item">
+      <van-button wx:if="{{!src}}" type="primary" bindtap="chooseImg">上传照片</van-button>
+      <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+      <image class="mt-10 img" mode="widthFix"   src="{{src}}"></image>
+    </view>
+
+  </van-cell-group>
+
+  <button type="primary" bindtap="postForm">{{type == 'add' ? '新增' : '修改'}}</button>
+
+</view>

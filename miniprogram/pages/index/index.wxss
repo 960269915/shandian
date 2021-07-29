@@ -1,1 +1,25 @@
-/* miniprogram/pages/index/index.wxss */
+.banner-img{
+  width: 100vw;
+}
+.nav-box{
+  width: 98vw;
+  margin: 30rpx auto;
+}
+.nav-icon{
+  font-weight: bold;
+  color: #1989fa;
+}
+
+.nav-btn{
+  text-align: right;
+}
+
+.publish-box{
+  width: 90vw;
+  padding: 40rpx 0;
+  background: palevioletred;
+  text-align: center;
+  margin: 30rpx auto;
+  border-radius: 30rpx;
+  color: white;
+}

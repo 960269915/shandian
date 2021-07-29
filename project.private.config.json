@@ -1,0 +1,120 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": -1,
+          "name": "db guide",
+          "pathName": "pages/databaseGuide/databaseGuide",
+          "query": ""
+        },
+        {
+          "name": "pages/addPet/addPet",
+          "pathName": "pages/addPet/addPet",
+          "query": "type=%22add%22",
+          "scene": null
+        },
+        {
+          "name": "pages/addPet/addPet",
+          "pathName": "pages/addPet/addPet",
+          "query": "type=details",
+          "scene": null
+        },
+        {
+          "name": "pages/me/me",
+          "pathName": "pages/me/me",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/publish",
+          "pathName": "pages/publish/publish",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/unuseGoods/unuserGoods",
+          "pathName": "pages/publish/unuseGoods/unuserGoods",
+          "query": "type=info&id=79550af260eff41c26c96ee37c6ce211",
+          "scene": null
+        },
+        {
+          "name": "pages/me/mypublish/mypublish",
+          "pathName": "pages/me/mypublish/mypublish",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/me/myfollow/myfollow",
+          "pathName": "pages/me/myfollow/myfollow",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/lostAndFind/lostAndFind",
+          "pathName": "pages/publish/lostAndFind/lostAndFind",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/findPet/findPet",
+          "pathName": "pages/publish/findPet/findPet",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/me/mypublish/mypublish",
+          "pathName": "pages/me/mypublish/mypublish",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/sendPet/sendPet",
+          "pathName": "pages/publish/sendPet/sendPet",
+          "query": "type=info&id=28ee4e3e60f8e4cc2c89b07757fa837c",
+          "scene": null
+        },
+        {
+          "name": "pages/me/mypublish/mypublish",
+          "pathName": "pages/me/mypublish/mypublish",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/me/signupInfo/signupInfo",
+          "pathName": "pages/me/signupInfo/signupInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/love/love",
+          "pathName": "pages/love/love",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/me/aboutme/aboutme",
+          "pathName": "pages/me/aboutme/aboutme",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

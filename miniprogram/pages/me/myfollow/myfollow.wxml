@@ -1,0 +1,81 @@
+<van-tabs sticky animated active="{{ active }}" bind:change="onChange">
+  <van-tab title="闲置">
+    <block wx:for="{{followList}}" wx:key="index" data-row="{{item}}">
+      <block wx:if="{{item.file}}">
+        <!-- 闲置 -->
+        <block>
+          <van-card price="{{item.price}}" title="{{item.goodstype}}" thumb="{{ item.file.fileid }}"
+            thumb-link="/pages/publish/unuseGoods/unuserGoods?type=info&id={{item.infoid}}">
+            <view slot="footer">
+              <van-button size="mini" bindtap="cancelFollow" data-row="{{item}}">取消收藏</van-button>
+            </view>
+          </van-card>
+        </block>
+      </block>
+      <block wx:else>
+        <van-card>
+          <view class="bad-box" slot="thumb">
+            <!-- 收藏已失效 -->
+            <image src="../../../image/icon/bad.png"></image>
+          </view>
+          <view slot="footer">
+            <van-button size="mini" bindtap="cancelFollow" data-row="{{item}}">取消收藏</van-button>
+          </view>
+        </van-card>
+      </block>
+
+    </block>
+  </van-tab>
+  <van-tab title="招领">
+    <block wx:for="{{followList}}" wx:key="index" data-row="{{item}}">
+      <block wx:if="{{item.file}}">
+        <block>
+          <van-card  title="{{item.goodstype+',捡到地点:'+item.position}}" thumb="{{ item.file.fileid }}"
+            thumb-link="/pages/publish/lostAndFind/lostAndFind?type=info&id={{item.infoid}}">
+            <view slot="footer">
+              <van-button size="mini" bindtap="cancelFollow" data-row="{{item}}">取消收藏</van-button>
+            </view>
+          </van-card>
+        </block>
+      </block>
+      <block wx:else>
+        <van-card>
+          <view class="bad-box" slot="thumb">
+            <!-- 收藏已失效 -->
+            <image src="../../../image/icon/bad.png"></image>
+          </view>
+          <view slot="footer">
+            <van-button size="mini" bindtap="cancelFollow" data-row="{{item}}">取消收藏</van-button>
+          </view>
+        </van-card>
+      </block>
+
+    </block>
+  </van-tab>
+  <van-tab title="寻找">
+    <block wx:for="{{followList}}" wx:key="index" data-row="{{item}}">
+      <block wx:if="{{item.file}}">
+        <block>
+          <van-card  title="{{item.goodstype+',丢失地点:'+item.position}}" thumb="{{ item.file.fileid }}"
+            thumb-link="/pages/publish/findPet/findPet?type=info&id={{item.infoid}}">
+            <view slot="footer">
+              <van-button size="mini" bindtap="cancelFollow" data-row="{{item}}">取消收藏</van-button>
+            </view>
+          </van-card>
+        </block>
+      </block>
+      <block wx:else>
+        <van-card>
+          <view class="bad-box" slot="thumb">
+            <!-- 收藏已失效 -->
+            <image src="../../../image/icon/bad.png"></image>
+          </view>
+          <view slot="footer">
+            <van-button size="mini" bindtap="cancelFollow" data-row="{{item}}">取消收藏</van-button>
+          </view>
+        </van-card>
+      </block>
+
+    </block>
+  </van-tab>
+</van-tabs>

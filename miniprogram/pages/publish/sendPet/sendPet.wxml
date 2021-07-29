@@ -1,0 +1,111 @@
+<view class="page">
+  <block wx:if="{{type != 'info'}}">
+    <view class="tip">所有数据都必须录入</view>
+    <van-cell-group>
+      <van-field label="宠物类型" model:value="{{ goodstype }}" placeholder="请输入宠物类型" />
+      <van-field label="宠物年龄" model:value="{{ age }}" placeholder="请输入宠物年龄,最小一岁" />
+      <view class="form-item flex">
+        <text class="form-label">宠物性别</text>
+        <van-radio-group model:value="{{ sex }}">
+          <view class="flex">
+            <van-radio name="1">雄性</van-radio>
+            <van-radio class="ml-10" name="0">雌性</van-radio>
+          </view>
+        </van-radio-group>
+      </view>
+
+      <view class="form-item flex">
+        <text class="form-label">是否绝育</text>
+        <van-radio-group model:value="{{ sterilization }}">
+          <view class="flex">
+            <van-radio name="1">是</van-radio>
+            <van-radio class="ml-10" name="0">否</van-radio>
+          </view>
+        </van-radio-group>
+      </view>
+
+      <view class="form-item flex">
+        <text class="form-label">是否疫苗</text>
+        <van-radio-group model:value="{{ vaccines }}">
+          <view class="flex">
+            <van-radio name="1">是</van-radio>
+            <van-radio class="ml-10" name="0">否</van-radio>
+          </view>
+        </van-radio-group>
+      </view>
+
+      <van-field label="领养要求" model:value="{{ requirement }}" type="textarea" autosize placeholder="请输入领养要求" />
+
+      <van-field label="宠物描述" model:value="{{ describe }}" type="textarea" autosize placeholder="请输入宠物描述" />
+      <!-- <van-field label="联系方式" model:value="{{ contact }}" type="textarea" autosize placeholder="微信号或者手机号" /> -->
+
+      <view class="form-item">
+        <van-button wx:if="{{!src}}" type="primary" bindtap="chooseImg">上传照片</van-button>
+        <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+        <image class="mt-10 img" mode="widthFix" src="{{src}}"></image>
+      </view>
+    </van-cell-group>
+    <button type="primary" bindtap="postForm">{{id ? '修改' : '发布'}}</button>
+  </block>
+
+  <block wx:else>
+    <van-image width="100vw" height="400" src="{{src}}" />
+    <view class="card-box flex flex-between">
+      <view>
+        <text class="price">浏览量{{activeNum}}</text>
+      </view>
+    </view>
+    <view class="card-box">
+      <view>
+        <text class="form-label">宠物名称:</text>
+        {{goodstype}}
+      </view>
+      <view>
+        <text class="form-label">宠物描述:</text>
+        {{describe}}
+      </view>
+      <view>
+        <!-- <text class="form-label">联系方式:</text>
+        {{contact}} -->
+        <!-- <text class="form-label small">(请尽量在休息时间联系)</text> -->
+      </view>
+
+      <view>
+        <text class="form-label">发布时间</text>
+        {{date}}
+      </view>
+
+      <view>
+        <text class="form-label">宠物性别</text>
+        {{sex ?  '雄性' : '雌性'}}
+      </view>
+
+      <view>
+        <text class="form-label">是否绝育</text>
+        {{sterilization ? '是' : '否'}}
+      </view>
+
+      <view>
+        <text class="form-label">是否疫苗</text>
+        {{vaccines ? '是' : '否'}}
+      </view>
+
+      <view>
+        <text class="form-label">领养要求</text>
+        {{requirement}}
+      </view>
+      <view class="tip">
+        报名时，请仔细阅读领养要求，符合再报名
+      </view>
+      <button  type="primary" bindtap="signup" style="margin-top:30px">{{signupText}}</button>
+
+      <view style="margin-top:30rpx" wx:if="{{showsignupList.length}}">
+        <text>已报名人员:</text>
+        <image class="user-list" 
+        bindtap="userInfo"
+        data-id="{{item_id}}"
+        wx:for="{{showsignupList}}" wx:key="index" src="{{item.avatarUrl}}"></image>
+      </view>
+    </view>
+  </block>
+</view>

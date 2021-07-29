@@ -1,0 +1,22 @@
+<view>
+  <block wx:for="{{ list }}" wx:key="index">
+    <view class="petbox">
+      <van-row style="color:white">
+        <van-col span="4">
+          <image class="pet-img" src="{{item.petInfo.file.fileid}}"></image>
+        </van-col>
+        <van-col offset="3" span="14" >
+          <view>名字:{{item.petInfo.name}}</view>
+          <view>年龄:{{item.petInfo.age}}</view>
+          <view>性别:{{item.petInfo.sex ? '雄性' : '雌性'}}</view>
+          <view>联系方式:{{item.signupInfo.contact ? item.signupInfo.contact : '暂无'}}</view>
+          <view>主人性别:{{item.signupInfo.sex ? '男士' : '女士'}}</view>
+          <view>主人职业:{{item.signupInfo.job ? item.signupInfo.job : '暂无'}}</view>
+        </van-col>
+      </van-row>
+      <view style="color:white">
+        宠物宣言:{{item.petInfo.describe}}
+      </view>
+    </view>
+  </block>
+</view>

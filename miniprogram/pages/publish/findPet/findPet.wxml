@@ -1,0 +1,64 @@
+<view class="page">
+  <block wx:if="{{type != 'info'}}">
+    <view class="tip">所有数据都必须录入</view>
+    <van-cell-group>
+      <van-field label="宠物类型" model:value="{{ goodstype }}" placeholder="请输入宠物类型" />
+      <van-field label="宠物描述" model:value="{{ describe }}" type="textarea" autosize placeholder="请输入宠物描述" />
+      <van-field label="联系方式" model:value="{{ contact }}" type="textarea" autosize placeholder="微信号或者手机号" />
+      <van-field label="宠物名称" model:value="{{ name }}" type="textarea" autosize placeholder="宠物名称" />
+      <van-field label="丢失地址" model:value="{{ position }}" type="textarea" autosize placeholder="请输入丢失地址" />
+      <van-field label="报酬金额" model:value="{{ money }}" type="textarea" autosize placeholder="请输入丢失地址" />
+      <view class="tip">为避免不必要的麻烦，请实事求是输入报酬</view>
+      <view class="form-item">
+        <van-button wx:if="{{!src}}" type="primary" bindtap="chooseImg">上传照片</van-button>
+        <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+        <image class="mt-10 img" mode="widthFix" src="{{src}}"></image>
+      </view>
+    </van-cell-group>
+    <button type="primary" bindtap="postForm">{{id ? '修改' : '发布'}}</button>
+  </block>
+
+  <block wx:else>
+    <van-image width="100vw" height="400" src="{{src}}" />
+    <view class="card-box flex flex-between">
+      <view>
+        <text class="price">浏览量{{activeNum}}</text>
+      </view>
+      <text bindtap="follow">{{followText}}</text>
+    </view>
+    <view class="card-box">
+      <view>
+        <text class="form-label">宠物类型:</text>
+        {{goodstype}}
+      </view>
+      <view>
+        <text class="form-label">宠物描述:</text>
+        {{describe}}
+      </view>
+      <view>
+        <text class="form-label">宠物名称:</text>
+        {{name}}
+      </view>
+      <view>
+        <text class="form-label">丢失地址:</text>
+        {{position}}
+      </view>
+      <view>
+        <text class="form-label">联系方式:</text>
+        {{contact}}
+      </view>
+
+      <view>
+        <text class="form-label">找到报酬:</text>
+        {{money}}
+      </view>
+
+     
+
+      <view>
+        <text class="form-label">发布时间</text>
+        {{date}}
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,12 +1,23 @@
 //app.js
 // npm install --save wx-server-sdk
+let model = require("./utils/model")
+let file = require("./utils/file")
+
 App({
   onLaunch: function () {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
       this.globalData = {
-        isPro:__wxConfig.envVersion //develop
+        model,
+        file,
+        isPro:__wxConfig.envVersion, //develop
+        user:{
+          nickName:"",//简称
+          gender:"",//性别1男
+          avatarUrl:"",//微信头像
+          openid:"",//用户的唯一标识id
+        }
       }
       wx.cloud.init({
         // env 参数说明：
@@ -14,12 +25,6 @@ App({
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
         env: __wxConfig.envVersion == 'develop' ? 'dev-7gau4e4k4b9e8a9f' : 'pro-8ganrobg1159dc22'
-      })
-
-      wx.cloud.callFunction({
-        name:"login"
-      }).then(res=>{
-        console.log(res);
       })
     }
   }

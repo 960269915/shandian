@@ -1,0 +1,5 @@
+<view>
+  <view  wx:for="{{navList}}" wx:key="index" class="publish-box" bindtap="navfn" data-val="{{item}}">
+    {{item.text}}
+  </view>
+</view>

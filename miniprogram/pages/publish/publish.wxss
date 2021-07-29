@@ -1,0 +1,9 @@
+.publish-box{
+  width: 90vw;
+  padding: 80rpx 0;
+  background: dodgerblue;
+  text-align: center;
+  margin: 30rpx auto;
+  border-radius: 30rpx;
+  color: white;
+}

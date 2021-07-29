@@ -1,0 +1,23 @@
+/* miniprogram/pages/me/me.wxss */
+.user-photo{
+  width: 250rpx;
+  height: 250rpx;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+  bottom: -120rpx;
+  right: 0rpx;
+}
+.user-photo-button{
+  width: 150rpx;
+  height: 150rpx;
+}
+.user-info{
+  margin-bottom: 50rpx;
+  color: white;
+  position: relative;
+}
+.pet-img{
+  width: 100vw;
+  height: 60vh;
+}

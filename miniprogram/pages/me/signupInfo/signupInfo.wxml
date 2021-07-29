@@ -1,0 +1,35 @@
+<block>
+    <view class="tip">所有数据都必须录入</view>
+    <van-cell-group>
+      <van-field label="职业" model:value="{{ job }}" placeholder="请输入职业" />
+      <van-field label="年龄" model:value="{{ age }}" placeholder="请输入年龄" />
+
+      <van-field label="联系方式" model:value="{{ contact }}" placeholder="请输入联系方式" />
+
+      <view class="form-item flex">
+        <text class="form-label">是否有房</text>
+        <van-radio-group model:value="{{ haveHome }}">
+          <view class="flex">
+            <van-radio name="1">是</van-radio>
+            <van-radio class="ml-10" name="0">否</van-radio>
+          </view>
+        </van-radio-group>
+      </view>
+
+      <view class="form-item flex">
+        <text class="form-label">性别</text>
+        <van-radio-group model:value="{{ sex }}">
+          <view class="flex">
+            <van-radio name="1">男</van-radio>
+            <van-radio class="ml-10" name="0">女</van-radio>
+          </view>
+        </van-radio-group>
+      </view>
+
+    
+      <van-field label="领养物语" model:value="{{otherText }}" type="textarea" autosize placeholder="自身评价，性格，尽可能让送养人选中" />
+
+     
+    </van-cell-group>
+    <button type="primary" bindtap="postForm">保存</button>
+  </block>

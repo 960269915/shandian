@@ -1,0 +1,9 @@
+.petbox{
+  padding: 30rpx;
+  background: silver;
+}
+.pet-img{
+  display: block;
+  width: 180rpx;
+  height: 230rpx;
+}

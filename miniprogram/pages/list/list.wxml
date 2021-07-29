@@ -1,0 +1,20 @@
+<view>
+  <!-- <van-grid>
+  <van-grid-item use-slot wx:for="{{ list }}" wx:key="index">
+    <image bindtap="goDetails" data-id="{{item._id}}" data-type="send" style="width: 100%; height: 90px;"
+      src="{{item.file.fileid}}" />
+  </van-grid-item>
+  </van-grid> -->
+
+  <block wx:for="{{ list }}" wx:key="index">
+
+    <van-card bindtap="details" data-id="{{item._id}}" wx:if="{{!item.price}}" tag="{{'浏览量'+item.activeNum}}" title="{{item.goodstype}}"
+      thumb="{{ item.file.fileid }}" desc="{{item.describe}}">
+    </van-card>
+
+    <van-card bindtap="details" data-id="{{item._id}}" wx:else tag="{{'浏览量'+item.activeNum}}" title="{{item.goodstype}}" thumb="{{ item.file.fileid }}"
+      desc="{{item.describe}}" price="{{item.price}}">
+    </van-card>
+  </block>
+
+</view>
