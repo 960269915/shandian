@@ -18,7 +18,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     wx.getStorage({
       key: "user",
       success: (res) => {
@@ -37,6 +37,10 @@ Page({
                 openid: this.data.user.openid
               }).get()
               .then((res) => {
+                // console.log(res);
+                if(!res.data[0].petInfo){
+                  return;
+                }
                 wx.setStorage({
                   key: "petInfo",
                   data: res.data[0].petInfo
@@ -57,7 +61,16 @@ Page({
   },
   addPets() {
     wx.navigateTo({
-      url: '/pages/addPet/addPet?type="add"',
+      url: '/pages/me/addPet/addPet?type=add',
+    })
+  },
+  loginOut(){
+    wx.clearStorage({
+      success: (res) => {
+        wx.redirectTo({
+          url: '/pages/auth/auth',
+        })
+      },
     })
   }
 })

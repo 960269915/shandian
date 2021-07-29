@@ -8,7 +8,9 @@
       <van-field label="联系方式" model:value="{{ contact }}" type="textarea" autosize placeholder="微信号或者手机号" />
       <view class="form-item">
         <van-button wx:if="{{!src}}" type="primary" bindtap="chooseImg">上传照片</van-button>
-        <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+        <view>
+          <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+        </view>
         <image class="mt-10 img" mode="widthFix" src="{{src}}"></image>
       </view>
     </van-cell-group>

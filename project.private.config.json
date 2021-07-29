@@ -113,6 +113,24 @@
           "pathName": "pages/me/aboutme/aboutme",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/me/me",
+          "pathName": "pages/me/me",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/sendPet/sendPet",
+          "pathName": "pages/publish/sendPet/sendPet",
+          "query": "type=info&id=cd045e75610263dc00cda85a14ccb209",
+          "scene": null
+        },
+        {
+          "name": "pages/publish/unuseGoods/unuserGoods",
+          "pathName": "pages/publish/unuseGoods/unuserGoods",
+          "query": "type=info&id=8937eaa9610262aa00a894835de9a15e",
+          "scene": null
         }
       ]
     }

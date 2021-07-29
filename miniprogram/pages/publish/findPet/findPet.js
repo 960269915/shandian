@@ -186,6 +186,16 @@ Page({
     }
   },
   follow(){
+    if (!user.openid) {
+      wx.clearStorage({
+        success: (res) => {
+          wx.navigateTo({
+            url: '/pages/auth/auth',
+          })
+        },
+      })
+      return;
+    }
     let row = {
       id:this.data.id,
       type:"findPet",

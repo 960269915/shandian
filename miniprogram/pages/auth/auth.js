@@ -17,8 +17,10 @@ Page({
           url: '/pages/index/index',
         })
       },
-      fail(err){
-        this.showBtn = true;
+      fail:(err)=>{
+        this.setData({
+          showBtn:true
+        })
       }
     })
   },
@@ -56,21 +58,21 @@ Page({
                   icon: 'success',
                   duration: 2000 //持续的时间
                 })
-                wx.setStorage({
-                  key:"user",
-                  data:userData,
-                  success(){
-                    wx.switchTab({
-                      url: '/pages/index/index',
-                    })
-                  }
-                })
               })
             } else {
               wx.switchTab({
                 url: '/pages/index/index',
               })
             }
+            wx.setStorage({
+              key:"user",
+              data:userData,
+              success(){
+                wx.switchTab({
+                  url: '/pages/index/index',
+                })
+              }
+            })
           })
       },
       fail: err => {

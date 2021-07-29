@@ -26,6 +26,7 @@ Page({
     this.setData({
       type: options.type
     })
+    console.log(this.data.type);
     if (options.type == 'details') {
       wx.getStorage({
         key: "petInfo",

@@ -9,10 +9,10 @@
       </van-row>
     </view>
 
-    <swiper indicator-dots="true" autoplay="true" style="height:40vh">
+    <swiper indicator-dots="true" autoplay="true" style="height:60vh">
       <block wx:for="{{findList}}" wx:key="*this">
         <swiper-item>
-          <image bindtap="goDetails" data-id="{{item._id}}" data-type="findPet" class="banner-img"
+          <image bindtap="goDetails"  data-id="{{item._id}}" data-type="findPet" class="banner-img"
             src="{{item.file.fileid}}" />
         </swiper-item>
       </block>

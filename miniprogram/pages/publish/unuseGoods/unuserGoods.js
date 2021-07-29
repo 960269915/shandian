@@ -1,4 +1,3 @@
-
 const app = getApp();
 const db = wx.cloud.database();
 const unusegoods = db.collection("unusegoods")
@@ -18,11 +17,11 @@ Page({
     src: "",
     filename: "",
     ischange: false,
-    oldImg:"",
+    oldImg: "",
     type: "", // 新增add 编辑 edit 详情info
-    activeNum:"",
-    data:"",
-    followText:"关注"
+    activeNum: "",
+    data: "",
+    followText: "关注"
   },
   /**
    * 生命周期函数--监听页面加载
@@ -35,7 +34,7 @@ Page({
     wx.hideShareMenu({
       menus: ['shareAppMessage', 'shareTimeline']
     })
-    if(this.data.id){
+    if (this.data.id) {
       this.getInfo()
       wx.showShareMenu({
         withShareTicket: true,
@@ -43,55 +42,55 @@ Page({
       })
     }
   },
-  async getInfo(){
+  async getInfo() {
     let info
     try {
-     info = await unusegoods.doc(this.data.id).get();
+      info = await unusegoods.doc(this.data.id).get();
     } catch (error) {
-        wx.showToast({
-          title: '获取信息失败',
-          icon:"error"
-        })
-        return
+      wx.showToast({
+        title: '获取信息失败',
+        icon: "error"
+      })
+      return
     }
 
     let activeNum = info.data.activeNum + 1;
     this.setData({
-      id:info.data._id,
-      goodstype:info.data.goodstype,
-      price:info.data.price,
-      describe:info.data.describe,
-      contact:info.data.contact,
-      src:info.data.file.fileid,
-      oldImg:info.data.file.fileid,
-      activeNum:activeNum,
-      date:info.data.date.getFullYear() +'-'+ info.data.date.getMonth() +'-'+  info.data.date.getDate()
+      id: info.data._id,
+      goodstype: info.data.goodstype,
+      price: info.data.price,
+      describe: info.data.describe,
+      contact: info.data.contact,
+      src: info.data.file.fileid,
+      oldImg: info.data.file.fileid,
+      activeNum: activeNum,
+      date: info.data.date.getFullYear() + '-' + info.data.date.getMonth() + '-' + info.data.date.getDate()
     })
-    if(this.data.type == "info"){
+    if (this.data.type == "info") {
       unusegoods.where({
-        _id:info.data._id
+        _id: info.data._id
       }).update({
-        data:{
-          activeNum:_.inc(1)
+        data: {
+          activeNum: _.inc(1)
         }
       })
 
       wx.cloud.callFunction({
-        name:"findFollow",
-        data:{
-          localdb:'follow',
-          formdb:'unusegoods',
-          localField:'infoid',
-          formField:'_id',
-          id:this.data.id
+        name: "findFollow",
+        data: {
+          localdb: 'follow',
+          formdb: 'unusegoods',
+          localField: 'infoid',
+          formField: '_id',
+          id: this.data.id
         }
-      }).then(res=>{
-        if(res.result[0] && res.result[0].findList.length){
+      }).then(res => {
+        if (res.result[0] && res.result[0].findList.length) {
           this.setData({
-            followText:"已关注"
+            followText: "已关注"
           })
         }
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err);
       })
     }
@@ -125,33 +124,32 @@ Page({
       if (this.data.type == 'add') {
         unusegoods.add({
           data: new app.globalData.model.UnuseGoods({
-              goodstype: this.data.goodstype,
-              price: this.data.price,
-              describe: this.data.describe,
-              contact: this.data.contact,
-              file: {
-                fileid: imgInfo
-              }
+            goodstype: this.data.goodstype,
+            price: this.data.price,
+            describe: this.data.describe,
+            contact: this.data.contact,
+            file: {
+              fileid: imgInfo
+            }
           })
-        }).then(()=>{
+        }).then(() => {
           wx.showToast({
             title: '操作成功',
             icon: "none",
-            duration:2000,
-            success(){
+            duration: 2000,
+            success() {
               wx.navigateBack({
                 delta: 1,
               })
             }
           })
         })
-      }else{
+      } else {
         unusegoods.where({
-          _id:this.data.id
-        })
-        .update({
-          data:
-            new app.globalData.model.UnuseGoods({
+            _id: this.data.id
+          })
+          .update({
+            data: new app.globalData.model.UnuseGoods({
               goodstype: this.data.goodstype,
               price: this.data.price,
               describe: this.data.describe,
@@ -160,63 +158,73 @@ Page({
               file: {
                 fileid: imgInfo
               }
-          })
-        }).then(()=>{
-          if(this.data.type == 'edit' && this.data.ischange){
-            new app.globalData.file().deleteFile(this.data.oldImg)
-          }
-          wx.showToast({
-            title: '操作成功',
-            icon: "none",
-            duration:2000,
-            success(){
-              wx.navigateBack({
-                delta: 1,
-              })
+            })
+          }).then(() => {
+            if (this.data.type == 'edit' && this.data.ischange) {
+              new app.globalData.file().deleteFile(this.data.oldImg)
             }
+            wx.showToast({
+              title: '操作成功',
+              icon: "none",
+              duration: 2000,
+              success() {
+                wx.navigateBack({
+                  delta: 1,
+                })
+              }
+            })
           })
-        })
       }
     }
   },
-  follow(){
+  follow() {
+    if (!user.openid) {
+      wx.clearStorage({
+        success: (res) => {
+          wx.navigateTo({
+            url: '/pages/auth/auth',
+          })
+        },
+      })
+      return;
+    }
     let row = {
-      id:this.data.id,
-      type:"unusegoods",
+      id: this.data.id,
+      type: "unusegoods",
     };
-    if(this.data.followText == '关注'){
+    if (this.data.followText == '关注') {
       follow.add({
-        data:new app.globalData.model.Follow(row)
-      }).then(()=>{
+        data: new app.globalData.model.Follow(row)
+      }).then(() => {
         wx.showToast({
           title: '关注成功',
         })
         this.setData({
-          followText:"已关注"
+          followText: "已关注"
         })
       })
-    }else{
+    } else {
       follow.where({
-        infoid:this.data.id,
-        _openid:user.openid
-      })
-      .remove()
-      .then(()=>{
-        wx.showToast({
-          title: '取消成功',
-          icon:'success'
+          infoid: this.data.id,
+          _openid: user.openid
         })
-        this.setData({
-          followText:"关注"
+        .remove()
+        .then(() => {
+          wx.showToast({
+            title: '取消成功',
+            icon: 'success'
+          })
+          this.setData({
+            followText: "关注"
+          })
         })
-      })
     }
   },
   onShareAppMessage: function () {
-    return{
-      title:this.data.goodstype,
-      path:"/pages/publish/unuseGoods/unuserGoods?type=info&id"+this.data.id,
-      imageUrl:this.data.src
+    return {
+      title: this.data.goodstype,
+      path: "/pages/publish/unuseGoods/unuserGoods?type=info&id" + this.data.id,
+      imageUrl: this.data.src
     }
   },
 })

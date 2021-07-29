@@ -11,7 +11,9 @@
       <view class="tip">为避免不必要的麻烦，请实事求是输入报酬</view>
       <view class="form-item">
         <van-button wx:if="{{!src}}" type="primary" bindtap="chooseImg">上传照片</van-button>
-        <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+        <view>
+          <van-button wx:if="{{src}}" type="primary" bindtap="delImg">删除</van-button>
+        </view>
         <image class="mt-10 img" mode="widthFix" src="{{src}}"></image>
       </view>
     </van-cell-group>
@@ -53,7 +55,7 @@
         {{money}}
       </view>
 
-     
+
 
       <view>
         <text class="form-label">发布时间</text>

@@ -24,7 +24,7 @@ App({
         //   env 参数决定接下来小程序发起的云开发调用（wx.cloud.xxx）会默认请求到哪个云环境的资源
         //   此处请填入环境 ID, 环境 ID 可打开云控制台查看
         //   如不填则使用默认环境（第一个创建的环境）
-        env: __wxConfig.envVersion == 'develop' ? 'dev-7gau4e4k4b9e8a9f' : 'pro-8ganrobg1159dc22'
+        env: __wxConfig.envVersion == 'develop' ? 'dev-7gau4e4k4b9e8a9f' : 'dev-7gau4e4k4b9e8a9f'
       })
     }
   }

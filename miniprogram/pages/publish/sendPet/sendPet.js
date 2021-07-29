@@ -1,4 +1,3 @@
-
 const app = getApp();
 const db = wx.cloud.database();
 const sendPet = db.collection("sendPet")
@@ -29,9 +28,9 @@ Page({
     data: "",
     signupText: "报名",
     signupList: '', //领养人报名列表
-    showsignupList:[],
-    userInfoMsg:{},
-    openid:"",
+    showsignupList: [],
+    userInfoMsg: {},
+    openid: "",
   },
   /**
    * 生命周期函数--监听页面加载
@@ -81,7 +80,7 @@ Page({
       saveDate: info.data.date,
       date: info.data.date.getFullYear() + '-' + info.data.date.getMonth() + '-' + info.data.date.getDate(),
       signupList: info.data.signupList ? info.data.signupList : "",
-      openid:info.data._openid
+      openid: info.data._openid
     })
     if (this.data.type == "info") {
       sendPet.where({
@@ -91,33 +90,33 @@ Page({
           activeNum: _.inc(1)
         }
       })
-      if(!info.data.signupList){
+      if (!info.data.signupList) {
         return;
       }
       let arr = info.data.signupList.split(",");
-      if(arr.indexOf(user.openid) > -1){
+      if (arr.indexOf(user.openid) > -1) {
         this.setData({
-          signupText:"已报名"
+          signupText: "已报名"
         })
       }
       // 字符串转arr 然后In查询 arr可以不在数据库
       users.aggregate()
-      .project({
-        included: $.in(['$_openid', arr]),//当前openid是否在指定的数组里面
-        avatarUrl:'$avatarUrl',
-      })
-      .end()
-      .then(res=>{
-        if(res.list.length){
-          this.setData({
-            showsignupList:(()=>{
-              return res.list.filter((item)=>{
-                return item.included == true
-              })
-            })()
-          })
-        }
-      })
+        .project({
+          included: $.in(['$_openid', arr]), //当前openid是否在指定的数组里面
+          avatarUrl: '$avatarUrl',
+        })
+        .end()
+        .then(res => {
+          if (res.list.length) {
+            this.setData({
+              showsignupList: (() => {
+                return res.list.filter((item) => {
+                  return item.included == true
+                })
+              })()
+            })
+          }
+        })
       // 模糊查询
       // users.where({
       //   _openid:{
@@ -131,7 +130,7 @@ Page({
       // })
     }
   },
- 
+
 
   async postForm() {
     if (!this.data.goodstype || !this.data.describe || !this.data.src || !this.data.age || !this.data.sex || !this.data.sterilization || !this.data.vaccines || !this.data.requirement) {
@@ -230,7 +229,18 @@ Page({
         "_openid": user.openid,
       }).get()
       .then(res => {
+        if (!res.data.length) {
+          wx.clearStorage({
+            success: (res) => {
+              wx.navigateTo({
+                url: '/pages/auth/auth',
+              })
+            },
+          })
+          return;
+        }
         let info = res.data[0];
+
         if (!info.signupInfo) {
           wx.showModal({
             title: '提示',
@@ -245,40 +255,10 @@ Page({
               }
             }
           })
-        }
-      })
-    sendPet.where({
-        _id: this.data.id,
-        date: this.data.saveDate
-      }).get()
-      .then((res) => {
-        if (res.data.length) {
-          let signupList = res.data[0].signupList ? res.data[0].signupList : '';
-          if (signupList == "") {
-            signupList += user.openid
-          } else {
-            signupList = signupList + ',' + user.openid
-          }
-          sendPet.where({
-              _id: this.data.id,
-            })
-            .update({
-              data: {
-                signupList: signupList
-              }
-            }).then(() => {
-              wx.showToast({
-                title: '报名成功',
-                icon: "none",
-                duration: 2000,
-              })
-              this.setData({
-                signupText: "已报名"
-              })
-            })
         } else {
           sendPet.where({
               _id: this.data.id,
+              date: this.data.saveDate
             }).get()
             .then((res) => {
               if (res.data.length) {
@@ -306,45 +286,89 @@ Page({
                     })
                   })
               } else {
-                wx.showToast({
-                  title: '未查询到数据',
-                  icon: "none"
-                })
+                sendPet.where({
+                    _id: this.data.id,
+                  }).get()
+                  .then((res) => {
+                    if (res.data.length) {
+                      let signupList = res.data[0].signupList ? res.data[0].signupList : '';
+                      if (signupList == "") {
+                        signupList += user.openid
+                      } else {
+                        signupList = signupList + ',' + user.openid
+                      }
+                      sendPet.where({
+                          _id: this.data.id,
+                        })
+                        .update({
+                          data: {
+                            signupList: signupList
+                          }
+                        }).then(() => {
+                          wx.showToast({
+                            title: '报名成功',
+                            icon: "none",
+                            duration: 2000,
+                          })
+                          this.setData({
+                            signupText: "已报名"
+                          })
+                        })
+                    } else {
+                      wx.showToast({
+                        title: '未查询到数据',
+                        icon: "none"
+                      })
+                    }
+                  })
               }
             })
         }
       })
   },
-  userInfo(e){
-    if(user.openid != this.data.openid){
+  async chooseImg() {
+    let res = await new app.globalData.file().chooseImage();
+    this.setData({
+      src: res.file[0],
+      filename: res.name,
+      ischange: true
+    })
+  },
+  delImg() {
+    this.setData({
+      src: ""
+    })
+  },
+  userInfo(e) {
+    if (user.openid != this.data.openid) {
       wx.showToast({
         title: '只有送养人才能查看报名人信息',
-        icon:"none"
+        icon: "none"
       })
       return;
     }
     const id = e.target.dataset.id;
     users.where({
-      _id:id
-    })
-    .get()
-    .then(res=>{
-      if(res.data.length){
-        this.setData({
-          userInfoMsg:res.data[0].signupInfo
-        })
-        const str = `您好，我的职业是${this.data.userInfoMsg.job}，今年${this.data.userInfoMsg.age},性别${this.data.userInfoMsg.sex ? '男' : '女'}，我在成都${this.data.userInfoMsg.haveHome ? '有' : '没有'}房子，自我评价:${this.data.userInfoMsg.otherText},如果对我有兴趣，请联系我吧${this.data.userInfoMsg.contact},期待您的联系！`
-        wx.showModal({
-          title: '用户信息',
-          content: str,
-          showCancel:false
-        })
-      }else{
-        wx.showToast({
-          title: '获取信息失败',
-          icon:"none"
-        })
-      }
-    })
+        _id: id
+      })
+      .get()
+      .then(res => {
+        if (res.data.length) {
+          this.setData({
+            userInfoMsg: res.data[0].signupInfo
+          })
+          const str = `您好，我的职业是${this.data.userInfoMsg.job}，今年${this.data.userInfoMsg.age},性别${this.data.userInfoMsg.sex ? '男' : '女'}，我在成都${this.data.userInfoMsg.haveHome ? '有' : '没有'}房子，自我评价:${this.data.userInfoMsg.otherText},如果对我有兴趣，请联系我吧${this.data.userInfoMsg.contact},期待您的联系！`
+          wx.showModal({
+            title: '用户信息',
+            content: str,
+            showCancel: false
+          })
+        } else {
+          wx.showToast({
+            title: '获取信息失败',
+            icon: "none"
+          })
+        }
+      })
   }
 })
